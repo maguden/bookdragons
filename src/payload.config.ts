@@ -9,6 +9,7 @@ import { migrations } from "./migrations";
 import { Users } from './collections/Users';
 import { Media } from './collections/Media';
 import { Books } from './collections/Books';
+import { Authors } from './collections/Authors';
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
@@ -24,6 +25,7 @@ const collections: CollectionConfig[] = [
   Users,
   Media,
   Books,
+  Authors
 ];
 
 /**

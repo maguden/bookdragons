@@ -70,6 +70,7 @@ export interface Config {
     users: User;
     media: Media;
     books: Book;
+    authors: Author;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -80,6 +81,7 @@ export interface Config {
     users: UsersSelect<false> | UsersSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
     books: BooksSelect<false> | BooksSelect<true>;
+    authors: AuthorsSelect<false> | AuthorsSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -179,6 +181,24 @@ export interface Book {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "authors".
+ */
+export interface Author {
+  id: number;
+  firstName: string;
+  lastName: string;
+  /**
+   * When enabled, the slug will auto-generate from the title field on save and autosave.
+   */
+  generateSlug?: boolean | null;
+  slug: string;
+  photo?: (number | null) | Media;
+  about?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
 export interface PayloadKv {
@@ -212,6 +232,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'books';
         value: number | Book;
+      } | null)
+    | ({
+        relationTo: 'authors';
+        value: number | Author;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -305,6 +329,20 @@ export interface BooksSelect<T extends boolean = true> {
   slug?: T;
   summary?: T;
   price?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "authors_select".
+ */
+export interface AuthorsSelect<T extends boolean = true> {
+  firstName?: T;
+  lastName?: T;
+  generateSlug?: T;
+  slug?: T;
+  photo?: T;
+  about?: T;
   updatedAt?: T;
   createdAt?: T;
 }
